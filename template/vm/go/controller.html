@@ -12,19 +12,19 @@ import (
 	"{{.table.PackageName}}/app/model"
 	{{.table.BusinessName}}Model "{{.table.PackageName}}/app/model/{{.table.ModuleName}}/{{.table.BusinessName}}"
 	{{.table.BusinessName}}Service "{{.table.PackageName}}/app/service/{{.table.ModuleName}}/{{.table.BusinessName}}"
-	"{{.table.PackageName}}/app/service/utils/response"
+	"{{.table.PackageName}}/app/utils/response"
 )
 
 //列表页
 func List(r *ghttp.Request) {
-	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/list.html").WriteTplExtend()
+	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/list.html").WriteTpl()
 }
 
 //列表分页数据
 func ListAjax(r *ghttp.Request) {
 	var req *{{.table.BusinessName}}Model.SelectPageReq
 	//获取参数
-	if err := r.Parse(req); err != nil {
+	if err := r.Parse(&req); err != nil {
 		response.ErrorResp(r).SetMsg(err.Error()).Log("{{.table.BusinessName}}管理", req).WriteJsonExit()
 	}
 	rows := make([]{{.table.BusinessName}}Model.Entity, 0)
@@ -39,14 +39,14 @@ func ListAjax(r *ghttp.Request) {
 
 //新增页面
 func Add(r *ghttp.Request) {
-	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/add.html").WriteTplExtend()
+	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/add.html").WriteTpl()
 }
 
 //新增页面保存
 func AddSave(r *ghttp.Request) {
 	var req *{{.table.BusinessName}}Model.AddReq
 	//获取参数
-	if err := r.Parse(req); err != nil {
+	if err := r.Parse(&req); err != nil {
 		response.ErrorResp(r).SetBtype(model.Buniss_Add).SetMsg(err.Error()).Log("{{.table.FunctionName}}新增数据", req).WriteJsonExit()
 	}
 
@@ -78,7 +78,7 @@ func Edit(r *ghttp.Request) {
 		return
 	}
 
-	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/edit.html").WriteTplExtend(g.Map{
+	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/edit.html").WriteTpl(g.Map{
 		"{{.table.BusinessName}}": entity,
 	})
 }
@@ -87,7 +87,7 @@ func Edit(r *ghttp.Request) {
 func EditSave(r *ghttp.Request) {
 	var req {{.table.BusinessName}}Model.EditReq
 	//获取参数
-	if err := r.Parse(req); err != nil {
+	if err := r.Parse(&req); err != nil {
 		response.ErrorResp(r).SetBtype(model.Buniss_Edit).SetMsg(err.Error()).Log("{{.table.FunctionName}}修改数据", req).WriteJsonExit()
 	}
 
@@ -103,7 +103,7 @@ func EditSave(r *ghttp.Request) {
 func Remove(r *ghttp.Request) {
 	var req *model.RemoveReq
 	//获取参数
-	if err := r.Parse(req); err != nil {
+	if err := r.Parse(&req); err != nil {
 		response.ErrorResp(r).SetBtype(model.Buniss_Del).SetMsg(err.Error()).Log("{{.table.FunctionName}}删除数据", req).WriteJsonExit()
 	}
 
@@ -120,7 +120,7 @@ func Remove(r *ghttp.Request) {
 func Export(r *ghttp.Request) {
 	var req *{{.table.BusinessName}}Model.SelectPageReq
 	//获取参数
-	if err := r.Parse(req); err != nil {
+	if err := r.Parse(&req); err != nil {
 		response.ErrorResp(r).Log("{{.table.FunctionName}}导出数据", req).WriteJsonExit()
 	}
 	url, err := {{.table.BusinessName}}Service.Export(req)
