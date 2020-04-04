@@ -85,7 +85,7 @@ func Edit(r *ghttp.Request) {
 
 //修改页面保存
 func EditSave(r *ghttp.Request) {
-	var req {{.table.BusinessName}}Model.EditReq
+	var req *{{.table.BusinessName}}Model.EditReq
 	//获取参数
 	if err := r.Parse(&req); err != nil {
 		response.ErrorResp(r).SetBtype(model.Buniss_Edit).SetMsg(err.Error()).Log("{{.table.FunctionName}}修改数据", req).WriteJsonExit()

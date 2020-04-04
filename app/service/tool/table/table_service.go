@@ -330,16 +330,20 @@ func InitColumnField(column *tableColumnModel.Entity, table *tableModel.Entity) 
 		column.HtmlType = "input"
 		// 如果是浮点型
 		tmp := column.ColumnType
-		start := strings.Index(tmp, "(")
-		end := strings.Index(tmp, ")")
-		result := tmp[start+1 : end]
-		arr := strings.Split(result, ",")
-		if len(arr) == 2 && gconv.Int(arr[1]) > 0 {
+		if tmp == "float" || tmp == "double" {
 			column.GoType = "float64"
-		} else if len(arr) == 1 && gconv.Int(arr[0]) <= 10 {
-			column.GoType = "int"
 		} else {
-			column.GoType = "int64"
+			start := strings.Index(tmp, "(")
+			end := strings.Index(tmp, ")")
+			result := tmp[start+1 : end]
+			arr := strings.Split(result, ",")
+			if len(arr) == 2 && gconv.Int(arr[1]) > 0 {
+				column.GoType = "float64"
+			} else if len(arr) == 1 && gconv.Int(arr[0]) <= 10 {
+				column.GoType = "int"
+			} else {
+				column.GoType = "int64"
+			}
 		}
 	}
 	//新增字段
