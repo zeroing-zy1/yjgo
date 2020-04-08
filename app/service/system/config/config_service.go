@@ -32,7 +32,11 @@ func GetValueByKey(key string) string {
 }
 
 func GetOssUrl() string {
-	return GetValueByKey("sys.resource.url")
+	v := GetValueByKey("sys.resource.url")
+	if v == "null" {
+		return ""
+	}
+	return v
 }
 
 //根据主键查询数据

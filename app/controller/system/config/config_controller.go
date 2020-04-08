@@ -130,7 +130,7 @@ func Export(r *ghttp.Request) {
 		response.ErrorResp(r).SetBtype(model.Buniss_Other).Log("参数管理", req).WriteJsonExit()
 	}
 
-	response.SucessResp(r).SetBtype(model.Buniss_Other).SetData(url).WriteJsonExit()
+	response.SucessResp(r).SetBtype(model.Buniss_Other).SetMsg(url).WriteJsonExit()
 }
 
 //检查参数键名是否已经存在不包括本参数

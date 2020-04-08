@@ -128,5 +128,5 @@ func Export(r *ghttp.Request) {
 	if err != nil {
 		response.ErrorResp(r).SetBtype(model.Buniss_Other).Log("{{.table.FunctionName}}导出数据", req).WriteJsonExit()
 	}
-	response.SucessResp(r).SetBtype(model.Buniss_Other).SetData(url).WriteJsonExit()
+	response.SucessResp(r).SetBtype(model.Buniss_Other).SetMsg(url).WriteJsonExit()
 }
