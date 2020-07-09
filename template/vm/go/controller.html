@@ -17,7 +17,7 @@ import (
 
 //列表页
 func List(r *ghttp.Request) {
-	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/list.html").WriteTplExtend()
+	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/list.html").WriteTpl()
 }
 
 //列表分页数据
@@ -39,7 +39,7 @@ func ListAjax(r *ghttp.Request) {
 
 //新增页面
 func Add(r *ghttp.Request) {
-	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/add.html").WriteTplExtend()
+	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/add.html").WriteTpl()
 }
 
 //新增页面保存
@@ -78,7 +78,7 @@ func Edit(r *ghttp.Request) {
 		return
 	}
 
-	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/edit.html").WriteTplExtend(g.Map{
+	response.BuildTpl(r, "{{.table.ModuleName}}/{{.table.BusinessName}}/edit.html").WriteTpl(g.Map{
 		"{{.table.BusinessName}}": entity,
 	})
 }
